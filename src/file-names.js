@@ -15,10 +15,7 @@ const { NotImplementedError } = require('../extensions/index.js');
  * the output should be ["file", "file(1)", "image", "file(1)(1)", "file(2)"]
  *
  */
-// const names = ['a', 'b', 'cd', 'b ', 'a(3)'];
 function renameFiles(names) {
-  console.log(names);
-  const newNames = [];
   let numberOfRepetitions = 0;
 
   for (let i = 0; i < names.length; i++) {
