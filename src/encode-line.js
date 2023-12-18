@@ -10,7 +10,6 @@ const { NotImplementedError } = require('../extensions/index.js');
  * For aabbbc should return 2a3bc
  *
  */
-// const str = 'aabbbc';
 function encodeLine(str) {
   const resultArr = [];
   let count = 1;
@@ -26,10 +25,9 @@ function encodeLine(str) {
     }
   }
 
-  // console.log(resultArr);
   return resultArr.join('');
 }
-// console.log(encodeLine(str));
+
 module.exports = {
   encodeLine
 };
