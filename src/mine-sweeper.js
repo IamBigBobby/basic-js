@@ -23,11 +23,7 @@ const { NotImplementedError } = require('../extensions/index.js');
  *  [1, 1, 1]
  * ]
  */
-// const matrix = [
-//   [true, false, false],
-//   [false, true, false],
-//   [false, false, false],
-// ]
+
 function minesweeper(matrix) {
   let zeroArr = [];
 
@@ -72,7 +68,7 @@ function minesweeper(matrix) {
 
   return zeroArr;
 }
-// console.log(minesweeper(matrix));
+
 module.exports = {
   minesweeper
 };
