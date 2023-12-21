@@ -19,17 +19,80 @@ const { NotImplementedError } = require('../extensions/index.js');
  * reverseMachine.decrypt('AEIHQX SX DLLU!', 'alphonse') => '!NWAD TA KCATTA'
  * 
  */
+
+// const key = 'alphonse';
 class VigenereCipheringMachine {
-  encrypt() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  constructor(reverse = true) {
+    this.reverse = reverse;
   }
-  decrypt() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+
+  encrypt(string, key) {
+    
+    if(string === undefined || key === undefined){
+      throw new Error ('Incorrect arguments!')
+    }
+
+    let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let numAlphabet = {};
+
+    for (let i = 0; i < alphabet.length; i++) {
+      numAlphabet[alphabet[i]] = i;
+    }
+
+    let encodeStr = '';
+
+    for (let i = 0, j = 0; i < string.length; i++) {
+      if (numAlphabet.hasOwnProperty(string[i].toUpperCase())) {
+        let encodedIndex = numAlphabet[string[i].toUpperCase()];
+        let keyIndex = numAlphabet[key[j % key.length].toUpperCase()];
+        let encryptedIndex = (encodedIndex + keyIndex) % alphabet.length;
+
+        encodeStr += alphabet[encryptedIndex];
+        j++;
+      } else {
+        encodeStr += string[i];
+      }
+    }
+    
+    return this.reverse ? encodeStr : encodeStr.split('').reverse().join('');
+  }
+
+  decrypt(string, key) {
+
+    if(string === undefined || key === undefined){
+      throw new Error ('Incorrect arguments!')
+    }
+
+    let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let numAlphabet = {};
+
+    for (let i = 0; i < alphabet.length; i++) {
+      numAlphabet[alphabet[i]] = i;
+    }
+
+    let decodeStr = '';
+
+    for (let i = 0, j = 0; i < string.length; i++) {
+      if (numAlphabet.hasOwnProperty(string[i].toUpperCase())) {
+        let encodedIndex = numAlphabet[string[i].toUpperCase()];
+        let keyIndex = numAlphabet[key[j % key.length].toUpperCase()];
+        let decryptedIndex = (encodedIndex - keyIndex + alphabet.length) % alphabet.length;
+
+        decodeStr += alphabet[decryptedIndex];
+        j++;
+      } else {
+        decodeStr += string[i];
+      }
+    }
+    
+    return this.reverse ? decodeStr : decodeStr.split('').reverse().join('');
   }
 }
+// const directMachine = new VigenereCipheringMachine();
+// const reverseMachine = new VigenereCipheringMachine(false);
 
+// console.log(directMachine.encrypt(string = 'attack at dawn!', key));
+// console.log(directMachine.decrypt(string = 'WQUPIKT', key))
 module.exports = {
   VigenereCipheringMachine
 };
